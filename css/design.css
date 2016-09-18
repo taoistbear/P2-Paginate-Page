@@ -1,3 +1,7 @@
+.hide {
+  display: none;
+}
+
 body{
   background-color: #e1f1f6;
   font-family: Helvetica, sans-serif;
@@ -99,7 +103,7 @@ body{
   margin: 40px 0 0 0;
   text-align: center;
 }
- 
+
   .pagination li{
     display: inline;
   }

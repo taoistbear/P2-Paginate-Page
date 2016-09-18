@@ -1,19 +1,14 @@
+// Set up closed funtion to preent interference of any variables with other scripts
 (function(){
-  var studentArr = new Array();
-  function Student(name, picture, email, joined) {
-    this.name = name;
-    this.picture = picture;
-    this.email = email;
-    this.start = joined;
+
+  //craete an NodeList for all the student data
+  var students = document.getElementsByTagName('li');
+  //turn the NodeList into an array to manipulate.
+  var studArr = jQuery.makeArray(students);
+
+  //create a functino to be called to determine the number of pages needed
+  function pages(fArr, show) {
+    var pageNum = Math.floor((fArr.length / show) + 1);
+    return pageNum;
   }
-  $('ul li').each(function() {
-    var newStudent = $(this).find('h3');
-    newStudent = new Student();
-    newStudent.name = $(this).find('h3');
-    newStudent.picture = $(this).find('img');
-    newStudent.email = $(this).find('span.email');
-    newStudent.start = $(this).find('span.date');
-    studentArr.push(newStudent);
-  });
-  console.log(studentArr);
 }());
