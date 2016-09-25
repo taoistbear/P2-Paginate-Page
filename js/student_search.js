@@ -23,19 +23,23 @@
     $('.page').append($pageDiv);
 
     //set click handlers for each button and force click first one.
-    $('div.pagination ul li').each(function(nArr) {
-      $('a').on('click', function(nArr) {
-        $('a').removeClass('active');
-        $(this).addClass('active');
-        $('ul.student-list li.student-item').each(function() {
-          $(this).addClass('hide');
-        });
-        var idx = (($(this).index())*10);
-        
+    $('a').on('click', function(nArr) {
+      $('a').removeClass('active');
+      $(this).addClass('active');
+      $('.student-item').each(function() {
+        $(this).addClass('hide');
       });
+      var idx = $(this).parent().index() * 10;
+      for ( var i = 0; i < 10; i++) {
+        $('.student-item:eq(' + idx + ')').removeClass('hide');
+        console.log(idx);
+        idx++;
+      }
     });
   }
 
   paginate(studArr);
+  $('a:eq(0)').trigger('click');
+
 
 }());
