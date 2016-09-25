@@ -1,6 +1,9 @@
 // Set up closed funtion to preent interference of any variables with other scripts
 (function(){
 
+  //Dynamically add serch to page
+  $('.page-header').append('<div class="student-search"><input placeholder="Search for stuedents..."/><button>Search</button><div>');
+
   //craete an NodeList for all the student data
   var students = document.getElementsByTagName('li');
   //turn the NodeList into an array to manipulate.
