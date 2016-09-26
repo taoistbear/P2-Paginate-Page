@@ -2,12 +2,27 @@
 (function(){
 
   //Dynamically add serch to page
-  $('.page-header').append('<div class="student-search"><input placeholder="Search for stuedents..."/><button>Search</button><div>');
+  $('.page-header').append('<div class="student-search"><input class="sInput" placeholder="Search for stuedents..."/><button class="sSearch">Search</button><div>');
 
   //craete an NodeList for all the student data
   var students = document.getElementsByTagName('li');
   //turn the NodeList into an array to manipulate.
   var studArr = jQuery.makeArray(students);
+  //creating a detroyable array for search purposes
+  var exArr = studArr;
+  //create a search array
+  var searchStudArr;
+
+  //Add click handler to search button inorder to filter student studArr
+  $('button.sSearch').on('click', function() {
+    var searchFor = $('.sInput').val().toLowerCase();
+        
+      }
+    }
+    paginate(searchStudArr);
+    $('a:eq(0)').trigger('click');
+    exArr = studArr;
+  });
 
   //create a functino to be called to determine the number of pages needed
   function pages(fArr, show) {
@@ -35,7 +50,6 @@
       var idx = $(this).parent().index() * 10;
       for ( var i = 0; i < 10; i++) {
         $('.student-item:eq(' + idx + ')').removeClass('hide');
-        console.log(idx);
         idx++;
       }
     });
