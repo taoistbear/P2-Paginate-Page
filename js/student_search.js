@@ -1,41 +1,68 @@
 //Dynamically add serch to page
 $('.page-header').append('<div class="student-search"><input class="sInput" placeholder="Search for students..."/><button class="sSearch">Search</button><div>');
 
+//save original data in a object variable
+var $orgStud = $('ul');
+
 //craete an NodeList for all the student data
 var students = document.getElementsByTagName('li');
 //turn the NodeList into an array to manipulate.
 var studArr = jQuery.makeArray(students);
-//creating a reusable object for adding search results
-var searchObj = [];
-
 
 //Add click handler to search button inorder to filter student studArr
 $('button.sSearch').on('click', function() {
   console.log('clicked');
   // set up search and reset by using no input to reset
   var searchFor = $('.sInput').val().toLowerCase();
+  // set up false for any results
+  var results = false;
+
   if (searchFor === '') {
     $('.pagination').remove();
+    $('ul').remove();
+    $('.page').append($orgStud);
+
+    //craete an NodeList for all the student data
+    var students = document.getElementsByTagName('li');
+    //turn the NodeList into an array to manipulate.
+    var studArr = jQuery.makeArray(students);
+
     paginate(studArr);
     $('a:eq(0)').trigger('click');
   } else {
     // go through each and h3 section to search
+    var $resultUl = $('<ul></ul>');
     $('.student-item').each(function() {
-      var $studElement = $(this);
-      var $h3 = $(this).find('h3');
-      var $name = $h3.html();
-      console.log($studElement);
-      console.log($name.indexOf(searchFor));
-      if ($name.indexOf(searchFor) >= 0) {
-        searchObj.push($studElement);
+      var $studElement = $(this).html();
+      var $name = $(this).find('h3').html();
+      if ($name.search(searchFor) >= 0) {
+        resluts = true;
+        $resultUl.append('<li>' + $studElement + '</li>');
       }
+      $('ul').addClass('student-list');
+      $('li').addClass('student-item');
+      $('li').addClass('cf')
+      $('.pagination').remove();
+      $('ul').remove();
+      $('.page').append($resultUl);
+
     });
-    $('.pagination').remove();
-    $('student-item').remove();
-    paginate(searchObj);
+
+    //craete an NodeList for all the NEW student data
+    var newStudents = document.getElementsByTagName('li');
+    //turn the NodeList into an array to manipulate.
+    var newStudArr = jQuery.makeArray(newStudents);
+
+    paginate(newStudArr);
     $('a:eq(0)').trigger('click');
-    searchObj = [];
-  };
+
+  }
+  if (!results) {
+    $('.pagination').remove();
+    $('ul').remove();
+    $('.page-header').find('h2').html('No Results. Please Refresh Page.');
+  }
+
 });
 
 //create a functino to be called to determine the number of pages needed
