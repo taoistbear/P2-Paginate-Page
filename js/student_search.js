@@ -11,7 +11,6 @@ var studArr = jQuery.makeArray(students);
 
 //Add click handler to search button inorder to filter student studArr
 $('button.sSearch').on('click', function() {
-  console.log('clicked');
   // set up search and reset by using no input to reset
   var searchFor = $('.sInput').val().toLowerCase();
   // set up false for any results
@@ -19,6 +18,7 @@ $('button.sSearch').on('click', function() {
 
   if (searchFor === '') {
     results = true;
+    $('.noResults').remove();
     $('.pagination').remove();
     $('ul').remove();
     $('.page').append($orgStud);
@@ -30,7 +30,7 @@ $('button.sSearch').on('click', function() {
 
     paginate(studArr);
     $('a:eq(0)').trigger('click');
-  } else if ($('.student-item').find('h3').html().search(searchFor) >= 0){
+  } else {
     // set results to true
     results = true;
     // go through each and h3 section to search
@@ -59,10 +59,10 @@ $('button.sSearch').on('click', function() {
     $('a:eq(0)').trigger('click');
 
   }
-  if (results === false) {
+  if ($('.student-list').html() == '') {
     $('.pagination').remove();
     $('.student-item').addClass('hide');
-    $('.student-list').append('<li>No Results. Please Refresh Page.</li>');
+    $('.student-list').append('<li class="noResults">No Results. Please Refresh Page.</li>');
   }
 
 });
