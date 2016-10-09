@@ -18,6 +18,7 @@ $('button.sSearch').on('click', function() {
   var results = false;
 
   if (searchFor === '') {
+    results = true;
     $('.pagination').remove();
     $('ul').remove();
     $('.page').append($orgStud);
@@ -29,14 +30,15 @@ $('button.sSearch').on('click', function() {
 
     paginate(studArr);
     $('a:eq(0)').trigger('click');
-  } else {
+  } else if ($('.student-item').find('h3').html().search(searchFor) >= 0){
+    // set results to true
+    results = true;
     // go through each and h3 section to search
     var $resultUl = $('<ul></ul>');
     $('.student-item').each(function() {
       var $studElement = $(this).html();
       var $name = $(this).find('h3').html();
       if ($name.search(searchFor) >= 0) {
-        resluts = true;
         $resultUl.append('<li>' + $studElement + '</li>');
       }
       $('ul').addClass('student-list');
@@ -57,10 +59,10 @@ $('button.sSearch').on('click', function() {
     $('a:eq(0)').trigger('click');
 
   }
-  if (!results) {
+  if (results === false) {
     $('.pagination').remove();
-    $('ul').remove();
-    $('.page-header').find('h2').html('No Results. Please Refresh Page.');
+    $('.student-item').addClass('hide');
+    $('.student-list').append('<li>No Results. Please Refresh Page.</li>');
   }
 
 });
