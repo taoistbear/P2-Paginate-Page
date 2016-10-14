@@ -85,12 +85,12 @@ function paginate(nArr) {
 
   //set click handlers for each button and force click first one.
   $('a').on('click', function(nArr) {
+    var idx = $(this).parent().index() * 10;
     $('a').removeClass('active');
     $(this).addClass('active');
     $('.student-item').each(function() {
       $(this).addClass('hide');
     });
-    var idx = $(this).parent().index() * 10;
     for ( var i = 0; i < 10; i++) {
       $('.student-item:eq(' + idx + ')').removeClass('hide');
       idx++;
